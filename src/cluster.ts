@@ -1,5 +1,5 @@
-import cluster from 'cluster';
-import os from 'os';
+import * as cluster from 'cluster';
+import * as os from 'os';
 
 if (cluster.isMaster) {
   const cpus = os.cpus().length;
