@@ -8,7 +8,6 @@ import { routes } from './routes';
 
 import { TodosService } from './services/TodosService';
 import { Database } from './services/Database';
-import { Environment } from './utils/Environment';
 
 const containerDefinition = {
   todosService: () => new TodosService(),
@@ -16,30 +15,28 @@ const containerDefinition = {
 };
 
 export class App {
-  private server: FastifyInstance;
-  container: Container<typeof containerDefinition>;
+  private static server?: FastifyInstance;
+  private static container?: Container<typeof containerDefinition>;
 
-  constructor() {
-    this.container = new Container(containerDefinition);
-    this.server = fastify();
+  static getContainer() {
+    if (!this.container) {
+      this.container = new Container(containerDefinition);
+    }
+    return this.container;
   }
 
-  async boot() {
-    this.server.register(pov, {
-      engine: {
-        pug,
-      },
-      root: path.join(__dirname, 'views'),
-    });
+  static getServer() {
+    if (!this.server) {
+      this.server = fastify();
+      this.server.register(pov, {
+        engine: {
+          pug,
+        },
+        root: path.join(__dirname, 'views'),
+      });
 
-    this.server.register(routes);
-
-    this.server.listen(Environment.getPort(), (err, address) => {
-      if (err) {
-        return console.error(err);
-      }
-
-      console.log(`Listening on ${address}`);
-    });
+      this.server.register(routes);
+    }
+    return this.server;
   }
 }

@@ -1,12 +1,5 @@
-import { Environment } from './src/utils/Environment';
+import { knexConfig } from './src/services/Database';
 
 module.exports = {
-
-  development: {
-    client: "sqlite3",
-    connection: {
-      filename: Environment.getDBFile(),
-    }
-  },
-
+  development: knexConfig,
 };

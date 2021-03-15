@@ -1,0 +1,10 @@
+extends layout.pug
+
+block content
+  h1="tada"
+  form(method="post", action="/todos")
+    input(type="text", placeholder="New Todo")
+    input(type="submit", value="Add")
+  ul
+    each todo in todos
+      li= todo.description
