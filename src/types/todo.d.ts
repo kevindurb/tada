@@ -9,7 +9,7 @@
  * A single todo item
  */
 export interface Todo {
-  id: number;
+  id?: number;
   description: string;
   done?: string;
   created?: string;

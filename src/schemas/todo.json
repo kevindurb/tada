@@ -9,6 +9,6 @@
     "done": { "type": "string", "format": "date" },
     "created": { "type": "string", "format": "date" }
   },
-  "required": ["id", "description"],
+  "required": ["description"],
   "additionalProperties": false
 }

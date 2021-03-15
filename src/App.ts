@@ -1,10 +1,11 @@
 import fastify, { FastifyInstance } from 'fastify';
 import pov from 'point-of-view';
+import fastifyFormBody from 'fastify-formbody';
 import * as pug from 'pug';
 import * as path from 'path';
 
 import { Container } from './Container';
-import { routes } from './routes';
+import { handlers } from './handlers';
 
 import { TodosService } from './services/TodosService';
 import { Database } from './services/Database';
@@ -25,17 +26,24 @@ export class App {
     return this.container;
   }
 
+  private static buildServer() {
+    const server = fastify();
+    server.register(pov, {
+      engine: {
+        pug,
+      },
+      root: path.join(__dirname, 'views'),
+    });
+    server.register(fastifyFormBody);
+
+    server.register(handlers);
+
+    return server;
+  }
+
   static getServer() {
     if (!this.server) {
-      this.server = fastify();
-      this.server.register(pov, {
-        engine: {
-          pug,
-        },
-        root: path.join(__dirname, 'views'),
-      });
-
-      this.server.register(routes);
+      this.server = this.buildServer();
     }
     return this.server;
   }
