@@ -1,0 +1,14 @@
+{
+  "$id": "todo",
+  "title": "Todo",
+  "description": "A single todo item",
+  "type": "object",
+  "properties": {
+    "id": { "type": "number" },
+    "description": { "type": "string" },
+    "done": { "type": "string", "format": "date" },
+    "created": { "type": "string", "format": "date" }
+  },
+  "required": ["id", "description"],
+  "additionalProperties": false
+}

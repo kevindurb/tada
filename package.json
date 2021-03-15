@@ -7,7 +7,8 @@
     "start": "nodemon --watch ./src ./src/index.ts",
     "start:cluster": "ts-node ./src/cluster.ts",
     "migrate:make": "knex migrate:make -x ts",
-    "migrate:latest": "knex migrate:latest"
+    "migrate:latest": "knex migrate:latest",
+    "schemas:compile": "json2ts -i src/schemas -o src/types"
   },
   "author": "",
   "license": "ISC",
@@ -39,6 +40,7 @@
     "@types/node": "^14.14.33",
     "@types/pug": "^2.0.4",
     "@types/webpack": "^4.41.26",
+    "json-schema-to-typescript": "^10.1.3",
     "ts-node": "^9.1.1"
   }
 }
