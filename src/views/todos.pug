@@ -7,4 +7,6 @@ block content
     input(type="submit", value="Add")
   ul
     each todo in todos
-      li= todo.description
+      li
+        input(type="checkbox", id="todo-" + todo.id)
+        label(for="todo-" + todo.id)=todo.description
